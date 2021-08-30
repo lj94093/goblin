@@ -39,7 +39,7 @@
 
 #[macro_use]
 pub(crate) mod gnu_hash;
-
+pub mod elf_hash;
 // These are shareable values for the 32/64 bit implementations.
 //
 // They are publicly re-exported by the pub-using module
@@ -286,6 +286,7 @@ if_sylvan! {
             let mut dynrels = RelocSection::default();
             let mut pltrelocs = RelocSection::default();
             let mut dynstrtab = Strtab::default();
+
             let dynamic = Dynamic::parse(bytes, &program_headers, ctx)?;
             if let Some(ref dynamic) = dynamic {
                 let dyn_info = &dynamic.info;
@@ -321,7 +322,9 @@ if_sylvan! {
                 if max_reloc_sym != 0 {
                     num_syms = cmp::max(num_syms, max_reloc_sym + 1);
                 }
-                dynsyms = Symtab::parse(bytes, dyn_info.symtab, num_syms, ctx)?;
+                
+                dynsyms=Symtab::parse(bytes,dyn_info.symtab,num_syms,ctx)?;
+                
             }
 
             let mut shdr_relocs = vec![];
@@ -358,6 +361,7 @@ if_sylvan! {
                 ctx: ctx,
             })
         }
+
     }
 
     impl<'a> ctx::TryFromCtx<'a, (usize, Endian)> for Elf<'a> {

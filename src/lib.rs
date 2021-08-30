@@ -346,6 +346,12 @@ pub mod elf32 {
         pub use crate::elf::gnu_hash::hash;
         elf_gnu_hash_impl!(u32);
     }
+
+    pub mod elf_hash{
+        pub use crate::elf::elf_hash::hash;
+        pub use crate::elf::elf_hash::ElfHash;
+    }
+    
 }
 
 #[cfg(feature = "elf64")]
@@ -362,6 +368,11 @@ pub mod elf64 {
     pub mod gnu_hash {
         pub use crate::elf::gnu_hash::hash;
         elf_gnu_hash_impl!(u64);
+    }
+    
+    pub mod elf_hash{
+        pub use crate::elf::elf_hash::hash;
+        pub use crate::elf::elf_hash::ElfHash;
     }
 }
 
