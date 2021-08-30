@@ -457,6 +457,18 @@ if_alloc! {
         pub fn to_vec(&self) -> Vec<Reloc> {
             self.iter().collect()
         }
+
+        /// the start offset of the table in the elf
+        #[inline]
+        pub fn start(&self) -> usize{
+            self.start
+        }
+
+        /// the end offset of the table in the elf
+        #[inline]
+        pub fn end(&self) -> usize{
+            self.end
+        }
     }
 
     impl<'a, 'b> IntoIterator for &'b RelocSection<'a> {

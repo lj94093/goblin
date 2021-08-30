@@ -334,6 +334,7 @@ use crate::error::Result;
 use alloc::vec::Vec;
 use core::fmt::{self, Debug};
 use core::result;
+use std::ops::Index;
 use scroll::ctx;
 use scroll::ctx::SizeWith;
 
@@ -535,6 +536,18 @@ if_alloc! {
         #[inline]
         pub fn len(&self) -> usize {
             self.count
+        }
+
+        /// the start offset of the table in the elf
+        #[inline]
+        pub fn start(&self) -> usize{
+            self.start
+        }
+
+        /// the end offset of the table in the elf
+        #[inline]
+        pub fn end(&self) -> usize{
+            self.end
         }
 
         /// Returns true if table has no symbols.

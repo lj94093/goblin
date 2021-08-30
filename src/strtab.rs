@@ -18,6 +18,7 @@ pub struct Strtab<'a> {
     bytes: &'a [u8],
     #[cfg(feature = "alloc")]
     strings: Vec<(usize, &'a str)>,
+    start: usize,
 }
 
 #[inline(always)]
@@ -43,6 +44,7 @@ impl<'a> Strtab<'a> {
             bytes: &bytes[offset..offset + len],
             #[cfg(feature = "alloc")]
             strings: Vec::new(),
+            start:offset
         }
     }
     /// Gets a str reference from the backing bytes starting at byte `offset`.
@@ -147,6 +149,18 @@ impl<'a> Strtab<'a> {
             Some(get_str(offset, self.bytes, self.delim).map_err(core::convert::Into::into))
         }
     }
+
+    /// the start offset of the table in the elf
+    #[inline]
+    pub fn start(&self)-> usize{
+        self.start
+    }
+
+    /// the buffer of the str table in the elf
+    #[inline]
+    pub fn bytes(&self)-> &[u8]{
+        &self.bytes
+    }
 }
 
 impl<'a> fmt::Debug for Strtab<'a> {
@@ -165,6 +179,7 @@ impl<'a> Default for Strtab<'a> {
             bytes: &[],
             #[cfg(feature = "alloc")]
             strings: Vec::new(),
+            start:0
         }
     }
 }
