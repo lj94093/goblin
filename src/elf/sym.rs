@@ -532,6 +532,12 @@ if_alloc! {
             }
         }
 
+        /// The bytes of symtab
+        #[inline]
+        pub fn bytes(&self) -> &[u8]{
+            self.bytes
+        }
+
         /// The number of symbols in the table.
         #[inline]
         pub fn len(&self) -> usize {

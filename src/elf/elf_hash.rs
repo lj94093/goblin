@@ -135,7 +135,7 @@ impl<'a> ElfHash<'a> {
 
     /// Given a symbol, a hash of that symbol, a dynamic string table and
     /// a `dynstrtab` to cross-reference names, maybe returns a Sym.
-    pub fn find(&'a self, symbol: &str) -> Option<Sym> {
+    pub fn find_with_symbol_name(&'a self, symbol: &str) -> Option<Sym> {
         let hash = self::hash(symbol);
         self.lookup(symbol, hash)
     }
