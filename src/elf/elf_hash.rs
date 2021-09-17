@@ -139,4 +139,19 @@ impl<'a> ElfHash<'a> {
         let hash = self::hash(symbol);
         self.lookup(symbol, hash)
     }
+
+
+    /// find the best bucket to create a elf hash table
+    pub fn find_best_bucket(sym_count:u32) -> u32{
+        let elf_buckets = [
+            1, 3, 17, 37, 67, 97, 131, 197, 263, 521, 1031, 2053, 4099, 8209,
+            16411, 32771
+        ];
+        for i in 0..elf_buckets.len()-1{
+            if sym_count < elf_buckets[i+1]{
+                return elf_buckets[i];
+            }
+        }
+        return elf_buckets.last().unwrap().to_owned();
+    }
 }
