@@ -48,6 +48,13 @@ pub const DT_RELA: u64 = 7;
 pub const DT_RELASZ: u64 = 8;
 /// Size of one Rela reloc
 pub const DT_RELAENT: u64 = 9;
+/// Android compressed rel/rela sections
+pub const DT_LOOS:u64 = 0x6000000d;
+pub const DT_ANDROID_REL: u64 = DT_LOOS + 2;
+pub const DT_ANDROID_RELSZ: u64 = DT_LOOS + 3;
+
+pub const DT_ANDROID_RELA: u64 = DT_LOOS + 4;
+pub const DT_ANDROID_RELASZ: u64 = DT_LOOS + 5;
 /// Size of string table
 pub const DT_STRSZ: u64 = 10;
 /// Size of one symbol table entry
@@ -601,6 +608,8 @@ macro_rules! elf_dynamic_info_std_impl {
             pub relaent: $size,
             pub relacount: usize,
             pub rel: usize,
+            pub android_rel: usize,
+            pub android_relsz: usize,
             pub relsz: usize,
             pub relent: $size,
             pub relcount: usize,
@@ -642,6 +651,8 @@ macro_rules! elf_dynamic_info_std_impl {
                     DT_RELSZ => self.relsz = dynamic.d_val as usize,
                     DT_RELENT => self.relent = dynamic.d_val as _,
                     DT_RELCOUNT => self.relcount = dynamic.d_val as usize,
+                    DT_ANDROID_REL | DT_ANDROID_RELA => self.android_rel = vm_to_offset(phdrs, dynamic.d_val).unwrap_or(0) as usize,
+                    DT_ANDROID_RELASZ | DT_ANDROID_RELSZ => self.android_relsz = dynamic.d_val as usize,
                     DT_GNU_HASH => self.gnu_hash = vm_to_offset(phdrs, dynamic.d_val),
                     DT_HASH => self.hash = vm_to_offset(phdrs, dynamic.d_val),
                     DT_STRTAB => {
