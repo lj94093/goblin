@@ -130,7 +130,7 @@ if_sylvan! {
         pub entry: u64,
         /// Whether the binary is little endian or not
         pub little_endian: bool,
-        ctx: Ctx,
+        pub ctx: Ctx,
     }
 
     impl<'a> Elf<'a> {
