@@ -49,7 +49,6 @@ pub const DT_RELASZ: u64 = 8;
 /// Size of one Rela reloc
 pub const DT_RELAENT: u64 = 9;
 /// Android compressed rel/rela sections
-pub const DT_LOOS:u64 = 0x6000000d;
 pub const DT_ANDROID_REL: u64 = DT_LOOS + 2;
 pub const DT_ANDROID_RELSZ: u64 = DT_LOOS + 3;
 
