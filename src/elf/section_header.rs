@@ -149,6 +149,7 @@ pub const SHT_HIOS: u32 = 0x6fff_ffff;
 pub const SHT_LOPROC: u32 = 0x7000_0000;
 /// X86-64 unwind information.
 pub const SHT_X86_64_UNWIND: u32 = 0x7000_0001;
+pub const SHT_ARM_ATTRIBUTES: u32 = 0x7000_0003;
 /// End of processor-specific.
 pub const SHT_HIPROC: u32 = 0x7fff_ffff;
 /// Start of application-specific.
